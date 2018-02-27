@@ -13,6 +13,9 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.Parse;
+import com.parse.ParseInstallation;
+
 public class MainActivity extends TabActivity {
     /**
      * Called when the activity is first created.
@@ -21,6 +24,8 @@ public class MainActivity extends TabActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Parse.initialize(this);
+        ParseInstallation.getCurrentInstallation().saveInBackground();
 
         setContentView(R.layout.activity_main);
 

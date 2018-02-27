@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private final String DefaultUnameValue = "";
     private String UnameValue;
 
+    private ImageView cancel;
     private Button login, register;//, tryBtn;
     private EditText username, password;
     private String user_name, user_password;
@@ -43,13 +45,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Parse.initialize(this);
-        ParseInstallation.getCurrentInstallation().saveInBackground();
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
 
-        createShortCut();
+//        createShortCut();
+
+        cancel = (ImageView) findViewById(R.id.login_cancel_btn);
 
         background = (RelativeLayout) findViewById(R.id.login_background);
         progressBar = (ProgressBar) findViewById(R.id.login_progressBar);
@@ -62,6 +63,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         password=(EditText)findViewById(R.id.password);
         register.setVisibility(View.VISIBLE);
 
+        cancel.setOnClickListener(this);
         login.setOnClickListener(this);
 //        tryBtn.setOnClickListener(this);
         register.setOnClickListener(this);
@@ -84,6 +86,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 logIn();
                 break;*/
+
+            case R.id.login_cancel_btn:
+                //Intent intent = new Intent(this, MainActivity.class);
+                //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                //startActivity(intent);
+                setResult(RESULT_CANCELED);
+                finish();
+                break;
+
             case R.id.loginbutton:
                 user_name = username.getText().toString();
                 user_password = password.getText().toString();
@@ -99,8 +110,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.registerbutton:
                 Intent intent3 = new Intent(this, RegisterActivity.class);
-                intent3.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(intent3);
+                //intent3.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivityForResult(intent3, 0);
                 break;
         }
     }
@@ -119,15 +130,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return false;
     }
 
-    public void createShortCut(){
-        Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
-        shortcutintent.putExtra("duplicate", false);
-        shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "eClaim");
-        Parcelable icon = Intent.ShortcutIconResource.fromContext(this, R.drawable.truck);
-        shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
-        shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(this, LoginActivity.class));
-        sendBroadcast(shortcutintent);
-    }
+ //   public void createShortCut(){
+   //     Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
+     //   shortcutintent.putExtra("duplicate", false);
+       // shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "eClaim");
+//        Parcelable icon = Intent.ShortcutIconResource.fromContext(this, R.drawable.truck);
+  //      shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
+    //    shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(this, LoginActivity.class));
+      //  sendBroadcast(shortcutintent);
+    //}
 
     public void logIn() {
         ParseUser.logInInBackground(user_name, user_password, new LogInCallback() {
@@ -139,8 +150,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 } else {
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     enabled = true;
-                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                    //Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                    setResult(RESULT_OK);
+                    //startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                     finish();
                 }
                 if(e != null) {

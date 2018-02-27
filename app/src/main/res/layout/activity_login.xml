@@ -30,6 +30,17 @@
                 android:weightSum="1"
                 android:layout_weight="0.42">
 
+                <ImageView
+                    android:id="@+id/login_cancel_btn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/cancel"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/launch"/>
+
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">

@@ -125,10 +125,10 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
         if (data != null) {
             String path = Utility.getPath(this, data.getData());
             Uri uri = Uri.parse(new File(path).toString());
-            Picasso.with(getApplicationContext()).load(uri).resize(640, 480).centerCrop().into(PHOTOS);
+            //Picasso.with(getApplicationContext()).load(path).resize(640, 480).centerCrop().into(PHOTOS);
             picBinary = Bitmap.createBitmap(Utility.compressImageUri(uri, 640, 480, this));
-            //Bitmap yourSelectedImage = Bitmap.createScaledBitmap(picBinary, 640, 480, true);
-            //PHOTOS.setImageBitmap(yourSelectedImage);
+            Bitmap yourSelectedImage = Bitmap.createScaledBitmap(picBinary, 640, 480, true);
+            PHOTOS.setImageBitmap(yourSelectedImage);
         }
         else {
             Toast.makeText(this, "Failed to get picture", Toast.LENGTH_LONG).show();
@@ -250,8 +250,8 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
                 }
                 break;
             case R.id.reg_cancel_btn:
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(this, LoginActivity.class);
+                setResult(RESULT_CANCELED);
                 finish();
                 break;
             case R.id.reg_select_btn:
@@ -337,7 +337,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
         user.put("firstName", first_name);
         user.put("phoneNo", phone);
         user.put("idImage", file);
-        Toast.makeText(getApplicationContext(), "Start to signup!", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "Start to signup!", Toast.LENGTH_LONG).show();
         ParseUser currUser = ParseUser.getCurrentUser();
         currUser.logOut();
         user.signUpInBackground(new SignUpCallback() {
@@ -353,9 +353,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface arg0, int arg1) {
-                                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                    startActivity(intent);
+                                    setResult(RESULT_CANCELED);
                                     finish();
                                 }
                             });
