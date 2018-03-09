@@ -6,4 +6,67 @@
     android:layout_height="match_parent"
     tools:context="com.pingan_us.pingan.WebActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/web_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_margin="12dp"
+                android:id="@+id/btnprev"
+                android:scaleType="fitCenter"
+                android:background="@color/transparent"
+                android:src="@drawable/undo"/>
+
+            <ImageButton
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_margin="12dp"
+                android:layout_toRightOf="@+id/btnprev"
+                android:id="@+id/btnnext"
+                android:scaleType="fitCenter"
+                android:background="@color/transparent"
+                android:src="@drawable/redo"
+                />
+            <ImageButton
+                android:id="@+id/web_close_btn"
+                android:layout_alignParentRight="true"
+                android:layout_margin="12dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:scaleType="fitCenter"
+                android:background="@color/transparent"
+                android:src="@drawable/cancel"/>
+
+        </RelativeLayout>
+
+
+        <WebView
+            android:id="@+id/webview"
+            android:layout_below="@+id/web_nav"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </WebView>
+        <ProgressBar
+            android:id="@+id/web_progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/webview"
+            android:layout_marginTop="100dp" />
+
+
+
+    </RelativeLayout>
+
+
+
 </android.support.constraint.ConstraintLayout>

@@ -23,4 +23,7 @@ public class MyAppConstants {
     public static final String businessLearnMore = "http://www.pingan-us.com/business-owners-policy";
 
     public static final String HOME_SLIDE = "homeSlide";
+
+    public static final int AUTO = 1, HOUSE = 2, HEALTH = 3, BUSINESS = 4;
+
 }

@@ -1,5 +1,7 @@
 package com.pingan_us.pingan;
 
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -7,15 +9,19 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.CursorAdapter;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.parse.ParseException;
@@ -30,6 +36,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
+
+    float initialX;
+    public int i = 0;
+
 
     List<String> idList = new ArrayList<>();
     List<Drawable> picList = new ArrayList<>();
@@ -78,10 +88,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         //imageSwitcher.
 
-        Animation in = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
-        Animation out = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
-        imageSwitcher.setInAnimation(in);
-        imageSwitcher.setOutAnimation(out);
+        final Animation lIn = AnimationUtils.loadAnimation(this, R.anim.slide_left_in);
+        final Animation lOut = AnimationUtils.loadAnimation(this, R.anim.slide_left_out);
+        final Animation rIn = AnimationUtils.loadAnimation(this, R.anim.slide_right_in);
+        final Animation rOut = AnimationUtils.loadAnimation(this, R.anim.slide_right_out);
+        imageSwitcher.setInAnimation(lIn);
+        imageSwitcher.setOutAnimation(lOut);
 
         imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
@@ -96,8 +108,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         getBitmapList();
 
-        imageSwitcher.postDelayed(new Runnable() {
-            int i = 0;
+        final Runnable runable = new Runnable() {
+            //i = 0;
 
             @Override
             public void run() {
@@ -108,14 +120,86 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     i = 0;
                 imageSwitcher.setImageDrawable(pic);
                 slideTitle.setText(dis);
-                imageSwitcher.postDelayed(this, 3000);
+                imageSwitcher.postDelayed(this, 6000);
             }
-        }, 5000);
+        };
 
+        imageSwitcher.postDelayed(runable, 5000);
+
+        imageSwitcher.setOnTouchListener(new OnSwipeTouchListener(getBaseContext()) {
+            int switcherImage = 0;
+
+            @Override
+            public void onSwipeRight() {
+                imageSwitcher.removeCallbacks(runable);
+                i--;
+                if(i == -1)
+                    i = picList.size() - 1;
+                imageSwitcher.setInAnimation(rIn);
+                imageSwitcher.setOutAnimation(rOut);
+                Drawable pic = picList.get(i);
+                String dis = picTitleList.get(i);
+                imageSwitcher.setImageDrawable(pic);
+                slideTitle.setText(dis);
+                imageSwitcher.setInAnimation(lIn);
+                imageSwitcher.setOutAnimation(lOut);
+                imageSwitcher.postDelayed(runable, 5000);
+            }
+
+            @Override
+            public void onSwipeLeft() {
+                imageSwitcher.removeCallbacks(runable);
+                i++;
+                if(i == picList.size())
+                    i = 0;
+                Drawable pic = picList.get(i);
+                String dis = picTitleList.get(i);
+                imageSwitcher.setImageDrawable(pic);
+                slideTitle.setText(dis);
+                imageSwitcher.postDelayed(runable, 5000);
+            }
+        });
+    }
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // TODO Auto-generated method stub
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                initialX = event.getX();
+                break;
+            case MotionEvent.ACTION_UP:
+                float finalX = event.getX();
+                if (initialX > finalX)
+                {
+                    i++;
+                    if(i == picList.size())
+                        i = 0;
+                    Drawable pic = picList.get(i);
+                    String dis = picTitleList.get(i);
+                    imageSwitcher.setImageDrawable(pic);
+                    slideTitle.setText(dis);
+                }
+                else
+                {
+                    i--;
+                    if(i == -1)
+                        i = picList.size() - 1;
+                    Drawable pic = picList.get(i);
+                    String dis = picTitleList.get(i);
+                    imageSwitcher.setImageDrawable(pic);
+                    slideTitle.setText(dis);
+
+                }
+                break;
+        }
+        return false;
     }
 
     @Override
     public void onClick(View v) {
+        Intent intent = new Intent(this, WebActivity.class);
         switch (v.getId()) {
             case R.id.carrier_btn:
                 GridLayout grid = (GridLayout) findViewById(R.id.carrier_grid);
@@ -125,17 +209,24 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     grid.setVisibility(View.GONE);
                 break;
             case R.id.auto_learnmore:
-                startActivityForResult();
-                Utility.showDialog(HomeActivity.this, MyAppConstants.autoLearnMore);
+                intent.putExtra("url", MyAppConstants.autoLearnMore);
+                startActivityForResult(intent, MyAppConstants.AUTO);
+                //Utility.showDialog(HomeActivity.this, MyAppConstants.autoLearnMore);
                 break;
             case R.id.house_learnmore:
-                Utility.showDialog(HomeActivity.this, MyAppConstants.houseLearnMore);
+                intent.putExtra("url", MyAppConstants.houseLearnMore);
+                startActivityForResult(intent, MyAppConstants.HOUSE);
+                //Utility.showDialog(HomeActivity.this, MyAppConstants.houseLearnMore);
                 break;
             case R.id.health_learnmore:
-                Utility.showDialog(HomeActivity.this, MyAppConstants.healthLearnMore);
+                intent.putExtra("url", MyAppConstants.healthLearnMore);
+                startActivityForResult(intent, MyAppConstants.HEALTH);
+                //Utility.showDialog(HomeActivity.this, MyAppConstants.healthLearnMore);
                 break;
             case R.id.business_learnmore:
-                Utility.showDialog(HomeActivity.this, MyAppConstants.businessLearnMore);
+                intent.putExtra("url", MyAppConstants.businessLearnMore);
+                startActivityForResult(intent, MyAppConstants.BUSINESS);
+                //Utility.showDialog(HomeActivity.this, MyAppConstants.businessLearnMore);
                 break;
         }
     }

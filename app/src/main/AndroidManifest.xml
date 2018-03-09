@@ -49,7 +49,10 @@
             android:name="com.parse.CLIENT_KEY"
             android:value="@string/back4app_client_key" />
 
-        <activity android:name=".WebActivity"></activity>
+        <activity android:name=".WebActivity"
+
+            ></activity>
     </application>
 
 </manifest>
+    <!--android:theme="@style/Theme.AppCompat.Dialog"-->
