@@ -53,7 +53,7 @@ import java.io.IOException;
 
 public class RegisterActivity extends Activity implements View.OnClickListener, View.OnKeyListener{
     private EditText USER_NAME, FIRST_NAME, LAST_NAME, USER_PASSWORD, CONFIRM_PASSWORD, EMAIL_ADDRESS, PHONE;
-    private CameraView PHOTO;
+    //private CameraView PHOTO;
     private ImageView PHOTOS;
     private ProgressBar spinner;
     private RelativeLayout background;
@@ -68,11 +68,11 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_test);
 
         Parse.initialize(this);
 
-        PHOTO = (CameraView) findViewById(R.id.camera);
+        //PHOTO = (CameraView) findViewById(R.id.camera);
         PHOTOS = (ImageView) findViewById(R.id.reg_photo);
 
         spinner = (ProgressBar) findViewById(R.id.reg_progressBar);
@@ -107,7 +107,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
         selectButton.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
 
-        PHOTO.setVisibility(View.GONE);
+        //PHOTO.setVisibility(View.GONE);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

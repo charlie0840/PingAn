@@ -78,5 +78,11 @@ public class MainActivity extends TabActivity {
         return view;
     }
 
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        System.exit(0);
+    }
+
 
 }

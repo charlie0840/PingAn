@@ -364,7 +364,7 @@
                     android:columnCount="4"
                     android:rowCount="10"
                     android:orientation="horizontal">
-                    <ImageView
+             <!--       <ImageView
                         android:layout_width="40dp"
                         android:layout_height="50dp"
                         android:layout_margin="5dp"
@@ -675,7 +675,7 @@
                         android:layout_centerHorizontal="true"
                         android:src="@drawable/americanmodern2"
                         android:layout_columnWeight="1"
-                        android:layout_rowWeight="1"/>
+                        android:layout_rowWeight="1"/>-->
 
 
                 </GridLayout>

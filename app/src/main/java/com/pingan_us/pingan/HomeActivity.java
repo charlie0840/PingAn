@@ -202,11 +202,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(this, WebActivity.class);
         switch (v.getId()) {
             case R.id.carrier_btn:
-                GridLayout grid = (GridLayout) findViewById(R.id.carrier_grid);
-                if(grid.getVisibility() == View.GONE)
-                    grid.setVisibility(View.VISIBLE);
-                else
-                    grid.setVisibility(View.GONE);
+                intent.putExtra("url", MyAppConstants.carrierLearnMore);
+                startActivityForResult(intent, MyAppConstants.CARRIER);
+                //GridLayout grid = (GridLayout) findViewById(R.id.carrier_grid);
+                //if(grid.getVisibility() == View.GONE)
+                //    grid.setVisibility(View.VISIBLE);
+                //else
+                //    grid.setVisibility(View.GONE);
                 break;
             case R.id.auto_learnmore:
                 intent.putExtra("url", MyAppConstants.autoLearnMore);
@@ -276,6 +278,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         if(picList.size() != 0 && picList.get(0) != null)
             imageSwitcher.setImageDrawable(picList.get(0));
     }
-
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        System.exit(0);
+        //System.out.println("Back Pressed!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        //Intent startMain = new Intent(Intent.ACTION_MAIN);
+        //startMain.addCategory(Intent.CATEGORY_HOME);
+        //startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //startActivity(startMain);
+    }
 
 }

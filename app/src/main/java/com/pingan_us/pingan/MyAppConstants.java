@@ -21,9 +21,12 @@ public class MyAppConstants {
     public static final String houseLearnMore = "http://www.pingan-us.com/homeowners";
     public static final String healthLearnMore = "http://www.pingan-us.com/life";
     public static final String businessLearnMore = "http://www.pingan-us.com/business-owners-policy";
+    public static final String carrierLearnMore = "http://www.pingan-us.com/carriers-we-represent";
 
     public static final String HOME_SLIDE = "homeSlide";
 
-    public static final int AUTO = 1, HOUSE = 2, HEALTH = 3, BUSINESS = 4;
+    public static final int AUTO = 1, HOUSE = 2, HEALTH = 3, BUSINESS = 4, CARRIER = 5;
+
+    public static final int MY_CAMERA_REQUEST_CODE = 111;
 
 }

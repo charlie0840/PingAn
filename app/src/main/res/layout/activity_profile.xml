@@ -117,8 +117,26 @@
                                     android:textSize="30dp"
                                     android:textStyle="bold"
                                     android:textColor="@color/colorBlack"
-                                    android:text="Your ID"/>
+                                    android:text="Your POLICY"/>
                             </RelativeLayout>
+                            <ImageView
+                                android:id="@+id/profile_prev_policy_button"
+                                android:layout_width="35dp"
+                                android:layout_height="120dp"
+                                android:layout_margin="5dp"
+                                android:layout_centerVertical="true"
+                                android:layout_toLeftOf="@+id/policy_switch"
+                                android:src="@drawable/drawerback"
+                                android:scaleType="fitCenter"/>
+                            <ImageView
+                                android:id="@+id/profile_next_policy_button"
+                                android:layout_width="35dp"
+                                android:layout_height="120dp"
+                                android:layout_margin="5dp"
+                                android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/policy_switch"
+                                android:src="@drawable/drawerout"
+                                android:scaleType="fitCenter"/>
                             <ImageSwitcher
                                 android:id="@+id/policy_switch"
                                 android:layout_width="250dp"
@@ -129,18 +147,41 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_marginBottom="10dp">
                             </ImageSwitcher>
-                            <Button
-                                android:id="@+id/policy_add_button"
-                                android:layout_width="150dp"
-                                android:layout_height="45dp"
-                                android:layout_margin="10dp"
-                                android:layout_centerHorizontal="true"
-                                android:layout_below="@+id/policy_switch"
-                                android:background="@drawable/btn_background"
-                                android:text="Edit your ID"
-                                android:textSize="15dp"
-                                android:textColor="@color/colorBlack"
-                                android:scaleType="fitCenter"/>
+                            <TextView
+                            android:id="@+id/profile_policy_name_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/policy_switch"
+                            android:layout_centerHorizontal="true"
+                            android:text="Add a Policy"
+                            android:textSize="20dp"
+                            android:textColor="@color/colorBlack"/>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/profile_policy_name_text">
+                                <Button
+                                    android:id="@+id/profile_delete_policy_button"
+                                    android:layout_width="120dp"
+                                    android:layout_height="45dp"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_margin="15dp"
+                                    android:text="Delete Policy"
+                                    android:background="@drawable/btn_background"
+                                    android:textSize="15dp"
+                                    android:textColor="@color/colorBlack"/>
+                                <Button
+                                    android:id="@+id/profile_add_policy_button"
+                                    android:layout_width="120dp"
+                                    android:layout_height="45dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_margin="15dp"
+                                    android:text="Add a Policy"
+                                    android:background="@drawable/btn_background"
+                                    android:textSize="15dp"
+                                    android:textColor="@color/colorBlack"/>
+                            </RelativeLayout>
                         </RelativeLayout>
                     </RelativeLayout>
                     <View
@@ -148,48 +189,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:background="@color/colorBrightGreen"/>
-                    <RelativeLayout
-                        android:id="@+id/entire_vehicle_section"
-                        android:layout_marginTop="1dp"
-                        android:layout_height="350dp"
-                        android:layout_width="match_parent"
-                        android:layout_below="@+id/entire_policy_section"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:background="@color/colorWhite">
-                        <RelativeLayout
-                            android:id="@+id/profile_vehicle_section"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-                            <RelativeLayout
-                                android:id="@+id/vehicle_section"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:layout_margin="10dp">
-                                <TextView
-                                    android:id="@+id/vehicle_section_title"
-                                    android:layout_height="wrap_content"
-                                    android:layout_width="wrap_content"
-                                    android:layout_centerVertical="true"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_marginTop="50dp"
-                                    android:textSize="30dp"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/colorBlack"
-                                    android:text="Your vehicles"/>
-                            </RelativeLayout>
-
-
-                        </RelativeLayout>
-
-                    </RelativeLayout>
                     <Button
                         android:id="@+id/profile_logout_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/entire_vehicle_section"
+                        android:layout_below="@id/entire_policy_section"
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
@@ -213,7 +217,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/launch"/>
+            android:src="@drawable/pinganbkg"/>
         <TextView
             android:id="@+id/login_indicate"
             android:layout_width="wrap_content"
@@ -259,7 +263,7 @@
             android:background="@drawable/btn_background" />
     </RelativeLayout>
 
-<!--
+
     <RelativeLayout
         android:id="@+id/profile_background"
         android:layout_width="match_parent"
@@ -274,6 +278,6 @@
             android:layout_centerHorizontal="true"
             android:id="@+id/profile_progressBar"
             android:progressDrawable="@drawable/circular_progress_bar"/>
-    </RelativeLayout>-->
+    </RelativeLayout>
 </RelativeLayout>
 

@@ -229,15 +229,7 @@
                     android:layout_centerHorizontal="true"
                     android:src="@drawable/profileicon"
                     android:scaleType="fitXY"/>
-                <com.wonderkiln.camerakit.CameraView
-                    android:id="@+id/camera"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_below="@+id/reg_photo_title"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/profileicon"
-                    android:scaleType="fitXY"
-                    android:adjustViewBounds="true" />
+
                 <Button
                     android:id="@+id/reg_select_btn"
                     android:layout_below="@id/reg_photo"
